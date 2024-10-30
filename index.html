@@ -1,47 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navegador Ficticio de Roquinia</title>
+    <title>rqBrowser - El Mejor Navegador de Roquinia</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+        /* Estilos existentes... */
+
+        #logo {
+            height: 40px; /* Ajusta según el tamaño de tu logo */
+            margin-right: 10px;
         }
-        #browser {
-            width: 80%;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        #browser-header {
-            background-color: #2e3b4e;
+
+        #favorites {
+            margin-top: 10px;
             padding: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            border-top: 1px solid #ccc;
         }
-        #browser-header button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 16px;
+
+        .favorite-item {
+            margin: 5px 0;
             cursor: pointer;
+            color: #2e3b4e;
         }
-        #search-input {
-            flex: 1;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        #content-display {
-            padding: 20px;
-            color: #333;
+
+        .favorite-item:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -49,6 +29,7 @@
 
 <div id="browser">
     <div id="browser-header">
+        <img src="logo.png" alt="rqBrowser Logo" id="logo"> <!-- Logo del rqBrowser -->
         <button onclick="goBack()">⬅️</button>
         <button onclick="goForward()">➡️</button>
         <button onclick="reloadPage()">🔄</button>
@@ -56,85 +37,19 @@
         <button onclick="navigate()">Ir</button>
     </div>
     <div id="content-display">
-        <h2>Bienvenido al Navegador de Roquinia</h2>
+        <h2>Bienvenido al rqBrowser</h2>
         <p>Este es un navegador ficticio. Usa la barra de búsqueda para navegar.</p>
+    </div>
+    <div id="favorites">
+        <h3>Favoritos</h3>
+        <div class="favorite-item" onclick="loadContent('mas_comics.html')">Mas Comics</div>
+        <div class="favorite-item" onclick="loadContent('otros_comics_xd.html')">Otros Comics XD</div>
+        <div class="favorite-item" onclick="loadContent('rusiaenguerraconucrania.html')">Rusia en Guerra con Ucrania</div>
     </div>
 </div>
 
 <script>
-    let historyStack = [];
-    let historyIndex = -1;
-
-    function navigate() {
-        const query = document.getElementById("search-input").value.trim().toLowerCase();
-
-        // Evitar que el formulario se envíe de forma predeterminada
-        if (query !== "") {
-            search(query); // Llamar a la función de búsqueda si la consulta no está vacía
-        } else {
-            alert("Por favor, ingresa un término de búsqueda válido.");
-        }
-    }
-
-    function search(query) {
-        // Definir las páginas web que quieres abrir según la búsqueda
-        switch(query) {
-            case "mas comics":
-                loadContent("google.com"); // Redirigir a la página mas_comics.html si la búsqueda coincide
-                break;
-            case "otros comics xd":
-                loadContent("otros_comics_xd.html"); // Redirigir a la página otros_comics_xd.html si la búsqueda coincide
-                break;
-            case "rusia en guerra con ucrania":
-                loadContent("rusiaenguerraconucrania.html"); // Redirigir a la página rusiaenguerraconucrania.html si la búsqueda coincide
-                break;
-            default:
-                alert("No se encontraron resultados para: " + query); // Mostrar un mensaje de alerta si no se encuentra ninguna coincidencia
-        }
-    }
-
-    function loadContent(url) {
-        const contentDisplay = document.getElementById("content-display");
-
-        // Aquí puedes cargar contenido simulado de la página
-        contentDisplay.innerHTML = `<h2>Cargando ${url}...</h2>`;
-        
-        // Simular la carga de contenido después de un retraso
-        setTimeout(() => {
-            contentDisplay.innerHTML = `<h2>${url}</h2><p>Este es el contenido ficticio de ${url}.</p>`;
-            updateHistory(url);
-        }, 1000); // Retraso de 1 segundo para simular carga
-    }
-
-    function updateHistory(url) {
-        // Guarda la página en el historial
-        if (historyIndex === -1 || historyStack[historyIndex] !== url) {
-            historyStack = historyStack.slice(0, historyIndex + 1);
-            historyStack.push(url);
-            historyIndex++;
-        }
-        document.getElementById("search-input").value = url; // Actualizar la barra de búsqueda con la URL actual
-    }
-
-    function goBack() {
-        if (historyIndex > 0) {
-            historyIndex--;
-            loadContent(historyStack[historyIndex]);
-        }
-    }
-
-    function goForward() {
-        if (historyIndex < historyStack.length - 1) {
-            historyIndex++;
-            loadContent(historyStack[historyIndex]);
-        }
-    }
-
-    function reloadPage() {
-        const url = historyStack[historyIndex];
-        loadContent(url);
-    }
+    // Código de navegación existente...
 </script>
 
 </body>
-</html>
